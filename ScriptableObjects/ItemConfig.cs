@@ -2,6 +2,9 @@
 
 public class ItemConfig : ScriptableObject
 {
+    [Header("Rarity")]
+    [SerializeField] public RarityType Rarity;
+    
     [Header("X, Y, Z Camera")]
     [SerializeField] public int X;
     [SerializeField] public int Y;
@@ -11,5 +14,14 @@ public class ItemConfig : ScriptableObject
     [SerializeField] public string ModeName;
     [SerializeField] public string ModeDescription;
     
-    public const string ENGLISH_FILE_NAME = "English.dat";
+    [Header("Optional part")]
+    [SerializeField] public bool IsForMasterBundle;
+}
+
+public enum RarityType
+{
+    Common,
+    Uncommon,
+    Rare,
+    Epic
 }

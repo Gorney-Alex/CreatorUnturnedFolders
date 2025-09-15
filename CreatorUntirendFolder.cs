@@ -12,6 +12,27 @@ public class CreatorUntirendFolder : MonoBehaviour
     
     [Header("ModeType")]
     [SerializeField] private ModeType _modeType;
+    
+    BarricadeType _barricadeType;
+    GasMaskType _gasMaskType;
+    HatType _hatType;
+    PantsType _pantType;
+    ShirtType _shirtType;
+    VestType _vestType;
+    
+    [SerializeField] private BarricadeConfig _barricadeConfig;
+    [SerializeField] private ItemConfig _backPackConfig;
+    [SerializeField] private HatConfig _hatConfig;
+    [SerializeField] private PantConfig _pantConfig;
+    [SerializeField] private ShirtConfig _shirtConfig;
+    [SerializeField] private VestConfig _vestConfig;
+    [SerializeField] private ItemConfig _supplyConfig;
+    [SerializeField] private ItemConfig _foodConfig;
+    [SerializeField] private ItemConfig _waterConfig;
+    [SerializeField] private ItemConfig _cloudConfig;
+    [SerializeField] private ItemConfig _medicalConfig;
+    [SerializeField] private ItemConfig _maskConfig;
+    
 
     private void Awake()
     {
@@ -20,8 +41,8 @@ public class CreatorUntirendFolder : MonoBehaviour
             Debug.LogError("Folder name or target folder name is empty");
             return;
         }
-        
-        Debug.Log("All data is loaded");
+
+        InitializeObjects();
     }
 
     private void Start()
@@ -31,20 +52,9 @@ public class CreatorUntirendFolder : MonoBehaviour
         foreach (string directory in directories)
         {
             string folderName = Path.GetFileName(directory);
-            
             CreateFolder(folderName);
-            
             Debug.Log($"Folder: {folderName}");
         }
-    }
-
-    private void CreateFolder(string folderName)
-    {
-        string folderPath = Path.Combine(_targetFolderPath, folderName);
-        Directory.CreateDirectory(folderPath);
-        
-        GenerateDataFileContent(Path.Combine(folderPath, folderName + ".dat"));
-        GenerateEnglishFileContent(Path.Combine(folderPath));
     }
     
     private void GenerateDataFileContent(string filePath)
@@ -55,8 +65,8 @@ public class CreatorUntirendFolder : MonoBehaviour
                 
                 break;
             
-            case ModeType.Barricade:
-                
+            case ModeType.Barricade: 
+                _barricadeType.CreateDataFile(filePath);
                 break;
             
             case ModeType.Cloud:
@@ -99,15 +109,34 @@ public class CreatorUntirendFolder : MonoBehaviour
         Debug.Log("Data File is created");
     }
     
-    private void GenerateEnglishFileContent(string filePath)
+    private void CreateFolder(string folderName)
+    {
+        string folderPath = Path.Combine(_targetFolderPath, folderName);
+        Directory.CreateDirectory(folderPath);
+        
+        GenerateDataFileContent(Path.Combine(folderPath, folderName + ".dat"));
+    }
+    
+    private void GenerateEnglishFileContent(string filePath, ItemConfig config)
     {
         using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
         {
-            writer.WriteLine("Name {0}");
-            writer.WriteLine("Description {0}");
+            writer.WriteLine("Name {0}", config.ModeName);
+            writer.WriteLine("Description {0}", config.ModeDescription);
         }
         
         Debug.Log("English File is created");
+    }
+
+    private void InitializeObjects()
+    {
+        _barricadeType = new BarricadeType(_barricadeConfig.X, _barricadeConfig.Y, _barricadeConfig.Z, _barricadeConfig.Health, _barricadeConfig.Range, _barricadeConfig.Radius, _barricadeConfig.Offset, _barricadeConfig.Explosion, _barricadeConfig.Rarity.ToString(), _barricadeConfig.IsForMasterBundle);
+        _hatType = new HatType(_hatConfig.X, _hatConfig.Y, _hatConfig.Z, _hatConfig.Armor, _hatConfig.Rarity.ToString(), _hatConfig.IsForMasterBundle);
+        _pantType = new PantsType(_pantConfig.X, _pantConfig.Y, _pantConfig.Z, _pantConfig.Width, _pantConfig.Armor, _pantConfig.Height, _pantConfig.Rarity.ToString(), _pantConfig.IsForMasterBundle);
+        _shirtType = new ShirtType(_pantConfig.X, _pantConfig.Y, _pantConfig.Z, _pantConfig.Width, _pantConfig.Armor, _pantConfig.Height, _pantConfig.Rarity.ToString(), _pantConfig.IsForMasterBundle);
+        _vestType = new VestType(_pantConfig.X, _pantConfig.Y, _pantConfig.Z, _pantConfig.Width, _pantConfig.Armor, _pantConfig.Height, _pantConfig.Rarity.ToString(), _pantConfig.IsForMasterBundle);
+        
+        Debug.Log("All data is loaded");
     }
     
     public enum ModeType
