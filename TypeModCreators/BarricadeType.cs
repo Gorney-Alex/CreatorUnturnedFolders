@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Globalization;
 
-public class BarricadeType
+public class BarricadeType : ICanBeCreated
 {
     private int _x;
     private int _y;

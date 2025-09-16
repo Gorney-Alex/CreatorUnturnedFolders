@@ -13,9 +13,6 @@ public class ItemConfig : ScriptableObject
     [Header("ModeName")]
     [SerializeField] public string ModeName;
     [SerializeField] public string ModeDescription;
-    
-    [Header("Optional part")]
-    [SerializeField] public bool IsForMasterBundle;
 }
 
 public enum RarityType

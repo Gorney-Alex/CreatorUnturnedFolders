@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Globalization;
 
-public class VestType
+public class VestType : ICanBeCreated
 {
     private int _x;
     private int _y;

@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Globalization;
 
-public class GasMaskType
+public class GasMaskType : ICanBeCreated
 {
     private int _x;
     private int _y;

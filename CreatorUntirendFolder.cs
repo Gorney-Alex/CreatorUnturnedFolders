@@ -1,8 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
 using System.Text;
-using System.Globalization;
 
 public class CreatorUntirendFolder : MonoBehaviour
 {
@@ -13,23 +11,27 @@ public class CreatorUntirendFolder : MonoBehaviour
     [Header("ModeType")]
     [SerializeField] private ModeType _modeType;
     
+    [Header("Optional part")]
+    [SerializeField] private bool _isForMasterBundle;
+    
     BarricadeType _barricadeType;
     GasMaskType _gasMaskType;
     HatType _hatType;
-    PantsType _pantType;
+    PantsType _pantsType;
     ShirtType _shirtType;
     VestType _vestType;
     
+    [Header("Configs")]
     [SerializeField] private BarricadeConfig _barricadeConfig;
-    [SerializeField] private ItemConfig _backPackConfig;
+    [SerializeField] private BackPackConfig _backPackConfig;
     [SerializeField] private HatConfig _hatConfig;
-    [SerializeField] private PantConfig _pantConfig;
+    [SerializeField] private PantConfig _pantsConfig;
     [SerializeField] private ShirtConfig _shirtConfig;
     [SerializeField] private VestConfig _vestConfig;
-    [SerializeField] private ItemConfig _supplyConfig;
-    [SerializeField] private ItemConfig _foodConfig;
-    [SerializeField] private ItemConfig _waterConfig;
-    [SerializeField] private ItemConfig _cloudConfig;
+    [SerializeField] private SupplyConfig _supplyConfig;
+    [SerializeField] private EdibleConfig _foodConfig;
+    [SerializeField] private EdibleConfig _waterConfig;
+    [SerializeField] private CloudConfig _cloudConfig;
     [SerializeField] private ItemConfig _medicalConfig;
     [SerializeField] private ItemConfig _maskConfig;
     
@@ -41,23 +43,16 @@ public class CreatorUntirendFolder : MonoBehaviour
             Debug.LogError("Folder name or target folder name is empty");
             return;
         }
-
-        InitializeObjects();
+        
+        Debug.Log("Start to create");
     }
 
     private void Start()
     {
-        string[] directories = Directory.GetDirectories(_folderPath);
-        
-        foreach (string directory in directories)
-        {
-            string folderName = Path.GetFileName(directory);
-            CreateFolder(folderName);
-            Debug.Log($"Folder: {folderName}");
-        }
+        Input();
     }
     
-    private void GenerateDataFileContent(string filePath)
+    private void Input()
     {
         switch (_modeType)
         {
@@ -66,7 +61,8 @@ public class CreatorUntirendFolder : MonoBehaviour
                 break;
             
             case ModeType.Barricade: 
-                _barricadeType.CreateDataFile(filePath);
+                _barricadeType = new BarricadeType(_barricadeConfig.X, _barricadeConfig.Y, _barricadeConfig.Z, _barricadeConfig.Health, _barricadeConfig.Range, _barricadeConfig.Radius, _barricadeConfig.Offset, _barricadeConfig.Explosion, _barricadeConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_barricadeType, _barricadeConfig);
                 break;
             
             case ModeType.Cloud:
@@ -78,11 +74,13 @@ public class CreatorUntirendFolder : MonoBehaviour
                 break;
             
             case ModeType.Hat:
-                
+                _hatType = new HatType(_hatConfig.X, _hatConfig.Y, _hatConfig.Z, _hatConfig.Armor, _hatConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_hatType, _hatConfig);
                 break;
             
             case ModeType.Vest:
-                
+                _vestType = new VestType(_vestConfig.X, _vestConfig.Y, _vestConfig.Z, _vestConfig.Width, _vestConfig.Armor, _vestConfig.Height, _vestConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_vestType, _vestConfig);
                 break;
             
             case ModeType.Mask:
@@ -90,11 +88,13 @@ public class CreatorUntirendFolder : MonoBehaviour
                 break;
             
             case ModeType.Pants:
-                
+                _pantsType = new PantsType(_pantsConfig.X, _pantsConfig.Y, _pantsConfig.Z, _pantsConfig.Width, _pantsConfig.Armor, _pantsConfig.Height, _pantsConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_pantsType, _pantsConfig);
                 break;
             
             case ModeType.Shirt:
-                
+                _shirtType = new ShirtType(_shirtConfig.X, _shirtConfig.Y, _shirtConfig.Z, _shirtConfig.Width, _shirtConfig.Armor, _shirtConfig.Height, _shirtConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_shirtType, _shirtConfig);
                 break;
             
             case ModeType.Water:
@@ -108,13 +108,30 @@ public class CreatorUntirendFolder : MonoBehaviour
         
         Debug.Log("Data File is created");
     }
+
+    private void CreateFolderWithDataFiles(ICanBeCreated creator, ItemConfig config)
+    {
+        string[] directories = Directory.GetDirectories(_folderPath);
+        
+        foreach (string directory in directories)
+        {
+            string folderName = Path.GetFileName(directory);
+            CreateFolderWithDataFiles(folderName, creator, config);
+            
+            Debug.Log($"Folder: {folderName}");
+        }
+    }
     
-    private void CreateFolder(string folderName)
+    private void CreateFolderWithDataFiles(string folderName, ICanBeCreated creator, ItemConfig config)
     {
         string folderPath = Path.Combine(_targetFolderPath, folderName);
         Directory.CreateDirectory(folderPath);
         
-        GenerateDataFileContent(Path.Combine(folderPath, folderName + ".dat"));
+        string mainDatPath = Path.Combine(folderPath, folderName + ".dat");
+        creator.CreateDataFile(mainDatPath);
+        
+        string englishFilePath = Path.Combine(folderPath, "English.dat");
+        GenerateEnglishFileContent(englishFilePath, config);
     }
     
     private void GenerateEnglishFileContent(string filePath, ItemConfig config)
@@ -126,17 +143,6 @@ public class CreatorUntirendFolder : MonoBehaviour
         }
         
         Debug.Log("English File is created");
-    }
-
-    private void InitializeObjects()
-    {
-        _barricadeType = new BarricadeType(_barricadeConfig.X, _barricadeConfig.Y, _barricadeConfig.Z, _barricadeConfig.Health, _barricadeConfig.Range, _barricadeConfig.Radius, _barricadeConfig.Offset, _barricadeConfig.Explosion, _barricadeConfig.Rarity.ToString(), _barricadeConfig.IsForMasterBundle);
-        _hatType = new HatType(_hatConfig.X, _hatConfig.Y, _hatConfig.Z, _hatConfig.Armor, _hatConfig.Rarity.ToString(), _hatConfig.IsForMasterBundle);
-        _pantType = new PantsType(_pantConfig.X, _pantConfig.Y, _pantConfig.Z, _pantConfig.Width, _pantConfig.Armor, _pantConfig.Height, _pantConfig.Rarity.ToString(), _pantConfig.IsForMasterBundle);
-        _shirtType = new ShirtType(_pantConfig.X, _pantConfig.Y, _pantConfig.Z, _pantConfig.Width, _pantConfig.Armor, _pantConfig.Height, _pantConfig.Rarity.ToString(), _pantConfig.IsForMasterBundle);
-        _vestType = new VestType(_pantConfig.X, _pantConfig.Y, _pantConfig.Z, _pantConfig.Width, _pantConfig.Armor, _pantConfig.Height, _pantConfig.Rarity.ToString(), _pantConfig.IsForMasterBundle);
-        
-        Debug.Log("All data is loaded");
     }
     
     public enum ModeType
