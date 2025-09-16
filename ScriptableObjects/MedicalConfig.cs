@@ -5,7 +5,10 @@ public class MedicalConfig : ItemConfig
 {
     [Header("Medical")]
     [SerializeField] public int Health;
-    [SerializeField] public bool isAid;
-    [SerializeField] public bool isHealBleeding;
-    [SerializeField] public bool isHealBones;
+    [SerializeField] public int Virus;
+    [SerializeField] public int Energy;
+    [SerializeField] public int Vision;
+    [SerializeField] public bool IsAid;
+    [SerializeField] public bool IsHealBleeding;
+    [SerializeField] public bool IsHealBones;
 }

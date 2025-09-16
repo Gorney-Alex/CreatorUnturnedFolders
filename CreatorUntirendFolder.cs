@@ -15,11 +15,17 @@ public class CreatorUntirendFolder : MonoBehaviour
     [SerializeField] private bool _isForMasterBundle;
     
     BarricadeType _barricadeType;
-    GasMaskType _gasMaskType;
     HatType _hatType;
     PantsType _pantsType;
     ShirtType _shirtType;
     VestType _vestType;
+    SupplyType _supplyType;
+    MedicalType _medicalType;
+    MaskType _maskType;
+    FoodType _foodType;
+    WaterType _waterType;
+    CloudType _cloudType;
+    BackPackType _backPackType;
     
     [Header("Configs")]
     [SerializeField] private BarricadeConfig _barricadeConfig;
@@ -32,8 +38,8 @@ public class CreatorUntirendFolder : MonoBehaviour
     [SerializeField] private EdibleConfig _foodConfig;
     [SerializeField] private EdibleConfig _waterConfig;
     [SerializeField] private CloudConfig _cloudConfig;
-    [SerializeField] private ItemConfig _medicalConfig;
-    [SerializeField] private ItemConfig _maskConfig;
+    [SerializeField] private MedicalConfig _medicalConfig;
+    [SerializeField] private MaskConfig _maskConfig;
     
 
     private void Awake()
@@ -57,7 +63,8 @@ public class CreatorUntirendFolder : MonoBehaviour
         switch (_modeType)
         {
             case ModeType.Supply:
-                
+                _supplyType = new SupplyType(_shirtConfig.X, _shirtConfig.Y, _shirtConfig.Z, _shirtConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_supplyType, _shirtConfig);
                 break;
             
             case ModeType.Barricade: 
@@ -66,11 +73,13 @@ public class CreatorUntirendFolder : MonoBehaviour
                 break;
             
             case ModeType.Cloud:
-                
+                _cloudType = new CloudType(_cloudConfig.X, _cloudConfig.Y, _cloudConfig.Z, _cloudConfig.Gravity, _cloudConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_cloudType, _cloudConfig);
                 break;
             
-            case ModeType.Food:
-                
+            case ModeType.Food: 
+                _foodType = new FoodType(_foodConfig.X, _foodConfig.Y, _foodConfig.Z, _foodConfig.Health, _foodConfig.Food, _foodConfig.Water, _foodConfig.Virus, _foodConfig.Vision, _foodConfig.Energy, _foodConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_foodType, _foodConfig);
                 break;
             
             case ModeType.Hat:
@@ -84,7 +93,8 @@ public class CreatorUntirendFolder : MonoBehaviour
                 break;
             
             case ModeType.Mask:
-                
+                _maskType = new MaskType(_maskConfig.X, _maskConfig.Y, _maskConfig.Z, _maskConfig.Rarity.ToString(), _maskConfig.IsProofRadiation, _isForMasterBundle);
+                CreateFolderWithDataFiles(_maskType, _maskConfig);
                 break;
             
             case ModeType.Pants:
@@ -98,11 +108,18 @@ public class CreatorUntirendFolder : MonoBehaviour
                 break;
             
             case ModeType.Water:
-                
+                _waterType = new WaterType(_waterConfig.X, _waterConfig.Y, _waterConfig.Z, _waterConfig.Health, _waterConfig.Food, _waterConfig.Water, _waterConfig.Virus, _waterConfig.Vision, _waterConfig.Energy, _waterConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_waterType, _waterConfig);
                 break;
             
             case ModeType.Medical:
-                
+                _medicalType = new MedicalType(_medicalConfig.X, _medicalConfig.Y, _medicalConfig.Z, _medicalConfig.Health, _medicalConfig.Virus, _medicalConfig.Vision, _medicalConfig.Energy, _medicalConfig.IsAid, _medicalConfig.IsHealBleeding, _medicalConfig.IsHealBones, _medicalConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_medicalType, _medicalConfig);
+                break;
+            
+            case ModeType.Backpack:
+                _backPackType = new BackPackType(_backPackConfig.X, _backPackConfig.Y, _backPackConfig.Z, _backPackConfig.Width, _backPackConfig.Height, _backPackConfig.Rarity.ToString(), _isForMasterBundle);
+                CreateFolderWithDataFiles(_backPackType, _backPackConfig);
                 break;
         }
         
@@ -157,6 +174,7 @@ public class CreatorUntirendFolder : MonoBehaviour
         Food,
         Water,
         Cloud,
-        Medical
+        Medical,
+        Backpack
     }
 }

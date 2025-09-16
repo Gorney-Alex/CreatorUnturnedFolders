@@ -55,14 +55,7 @@ public class BarricadeType : ICanBeCreated
             writer.WriteLine("Has_Clip_Prefab false");
             writer.WriteLine();
             writer.WriteLine("Procedurally_Animate_Inertia false");
-            if (_isForMasterBundle)
-            {
-                writer.WriteLine();
-            }
-            else
-            { 
-                writer.WriteLine("Exclude_From_Master_Bundle");
-            }
+            if (!_isForMasterBundle) writer.WriteLine("Exclude_From_Master_Bundle");
         }
     }
 }

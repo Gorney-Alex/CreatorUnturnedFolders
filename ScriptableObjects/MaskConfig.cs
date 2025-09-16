@@ -1,0 +1,8 @@
+﻿using UnityEngine;
+
+[CreateAssetMenu(fileName = "MaskConfig", menuName = "ScriptableObjects/MaskConfig", order = 1)]
+public class MaskConfig : ItemConfig
+{
+    [Header("Mask")]
+    [SerializeField] public bool IsProofRadiation;
+}

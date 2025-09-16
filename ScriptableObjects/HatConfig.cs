@@ -5,6 +5,4 @@ public class HatConfig : ItemConfig
 {
     [Header("Hat")]
     [SerializeField] public float Armor;
-    [SerializeField] public int Width;
-    [SerializeField] public int Height;
 }

@@ -46,14 +46,7 @@ public class VestType : ICanBeCreated
             writer.WriteLine("Width {0}", _width.ToString(CultureInfo.InvariantCulture));
             writer.WriteLine("Height {0}", _height.ToString(CultureInfo.InvariantCulture));
             writer.WriteLine();
-            if (_isForMasterBundle)
-            {
-                writer.WriteLine();
-            }
-            else
-            { 
-                writer.WriteLine("Exclude_From_Master_Bundle");
-            }
+            if (!_isForMasterBundle) writer.WriteLine("Exclude_From_Master_Bundle");
         }
     }
 }
