@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3c84ea09af4e719cd906b0e3624dcf, type: 3}
-  m_Name: ShirtConfig
+  m_Script: {fileID: 11500000, guid: a50bb6eac883405e9a7d176035bb4f31, type: 3}
+  m_Name: BaseMask
   m_EditorClassIdentifier: 
   Rarity: 0
-  X: 0
-  Y: 0
-  Z: 0
-  ModeName: 
-  ModeDescription: 
-  Armor: 0
-  Width: 0
-  Height: 0
+  X: 2
+  Y: 2
+  Z: 0.5
+  ModeName: Gasmask
+  ModeDescription: Blocks out dangerous radiation when fitted with a working filter.
+  IsProofRadiation: 1

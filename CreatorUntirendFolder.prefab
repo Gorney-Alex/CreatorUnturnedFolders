@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4231876956748056847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4231876956748056845}
+  - component: {fileID: 4231876956748056844}
+  m_Layer: 0
+  m_Name: CreatorUntirendFolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4231876956748056845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4231876956748056847}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -661.62476, y: 35.623604, z: 334.89062}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4231876956748056844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4231876956748056847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd23f119bc189740a27799e581e4921, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _folderPath: Assets\CoreMasterBundle\IranOrder\Armor\USAShirts
+  _targetFolderPath: C:\Users\Home\Documents\Create_Files_MOD
+  _modeType: 0
+  _isForMasterBundle: 1
+  _barricadeConfig: {fileID: 11400000, guid: d69eb187c1f51a94ea5b5129d5145273, type: 2}
+  _backPackConfig: {fileID: 11400000, guid: e2fba2ee050266343bec4a24d7ba134d, type: 2}
+  _hatConfig: {fileID: 11400000, guid: 25f2b17c1d8f3fa4ab5dc1e348552902, type: 2}
+  _pantsConfig: {fileID: 11400000, guid: d6fcbaf8b23ed5f46937dc65ee2de7c8, type: 2}
+  _shirtConfig: {fileID: 11400000, guid: 6e56902c37b408543b50db7e7b8764dc, type: 2}
+  _vestConfig: {fileID: 11400000, guid: fc1fd8390c417f84f89d5f7004d64e22, type: 2}
+  _supplyConfig: {fileID: 11400000, guid: 191a07492cd23214ab9059a28b7d4b85, type: 2}
+  _foodConfig: {fileID: 11400000, guid: 82753bb9731c6914daad0386cf7ab690, type: 2}
+  _waterConfig: {fileID: 11400000, guid: fdcde617f2849254394098fe07295803, type: 2}
+  _cloudConfig: {fileID: 11400000, guid: bd0b6703225661c4784f669c9bb956d2, type: 2}
+  _medicalConfig: {fileID: 11400000, guid: fefd2888b6010584c95f6dcd2db28719, type: 2}
+  _maskConfig: {fileID: 11400000, guid: 49225034c8c4da746ba0e0d60e8a938a, type: 2}
