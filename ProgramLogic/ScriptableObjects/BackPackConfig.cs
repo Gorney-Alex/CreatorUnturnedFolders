@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+//Gorney-Alex program
+
 [CreateAssetMenu(fileName = "BackPackConfig", menuName = "ScriptableObjects/BackPackConfig", order = 1)]
 public class BackPackConfig : ItemConfig
 {

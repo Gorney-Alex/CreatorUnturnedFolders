@@ -3,6 +3,8 @@ using System.IO;
 using System.Text;
 using System.Globalization;
 
+//Gorney-Alex program
+
 public class PantsType : ICanBeCreated
 {
     private int _x;

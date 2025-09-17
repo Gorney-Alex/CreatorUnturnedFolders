@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+//Gorney-Alex program
+
 [CreateAssetMenu(fileName = "BarricadeConfig", menuName = "ScriptableObjects/BarricadeConfig", order = 1)]
 public class BarricadeConfig : ItemConfig
 {

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+//Gorney-Alex program
+
 [CreateAssetMenu(fileName = "EdibleConfig", menuName = "ScriptableObjects/EdibleConfig", order = 1)]
 public class EdibleConfig : ItemConfig
 {

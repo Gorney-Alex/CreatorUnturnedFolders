@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+//Gorney-Alex program
+
 [CreateAssetMenu(fileName = "HatConfig", menuName = "ScriptableObjects/HatConfig", order = 1)]
 public class HatConfig : ItemConfig
 {

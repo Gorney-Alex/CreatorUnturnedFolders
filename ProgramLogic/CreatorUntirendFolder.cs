@@ -2,6 +2,8 @@
 using System.IO;
 using System.Text;
 
+//Gorney-Alex program
+
 public class CreatorUntirendFolder : MonoBehaviour
 {
     [Header("Folder path")]

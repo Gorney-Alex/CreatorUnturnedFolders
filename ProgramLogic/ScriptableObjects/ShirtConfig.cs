@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+//Gorney-Alex program
+
 [CreateAssetMenu(fileName = "ShirtConfig", menuName = "ScriptableObjects/ShirtConfig", order = 1)]
 public class ShirtConfig : ItemConfig
 {

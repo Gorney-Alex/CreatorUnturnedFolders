@@ -3,6 +3,8 @@ using System.IO;
 using System.Text;
 using System.Globalization;
 
+//Gorney-Alex program
+
 public class ShirtType : ICanBeCreated
 {
     private int _x;

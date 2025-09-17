@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+//Gorney-Alex program
+
 [CreateAssetMenu(fileName = "VestConfig", menuName = "ScriptableObjects/VestConfig", order = 1)]
 public class VestConfig : ItemConfig
 {

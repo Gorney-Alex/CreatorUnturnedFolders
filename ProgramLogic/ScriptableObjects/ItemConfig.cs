@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+//Gorney-Alex program
+
 public class ItemConfig : ScriptableObject
 {
     [Header("Rarity")]

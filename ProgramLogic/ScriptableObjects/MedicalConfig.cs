@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+//Gorney-Alex program
+
 [CreateAssetMenu(fileName = "MedicalConfig", menuName = "ScriptableObjects/MedicalConfig", order = 1)]
 public class MedicalConfig : ItemConfig
 {
