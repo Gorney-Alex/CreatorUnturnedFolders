@@ -16,18 +16,18 @@ public class CreatorUntirendFolder : MonoBehaviour
     [Header("Optional part")]
     [SerializeField] private bool _isForMasterBundle;
     
-    BarricadeType _barricadeType;
-    HatType _hatType;
-    PantsType _pantsType;
-    ShirtType _shirtType;
-    VestType _vestType;
-    SupplyType _supplyType;
-    MedicalType _medicalType;
-    MaskType _maskType;
-    FoodType _foodType;
-    WaterType _waterType;
-    CloudType _cloudType;
-    BackPackType _backPackType;
+    private BarricadeType _barricadeType;
+    private HatType _hatType;
+    private PantsType _pantsType;
+    private ShirtType _shirtType;
+    private VestType _vestType;
+    private SupplyType _supplyType;
+    private MedicalType _medicalType;
+    private MaskType _maskType;
+    private FoodType _foodType;
+    private WaterType _waterType;
+    private CloudType _cloudType;
+    private BackPackType _backPackType;
     
     [Header("Configs")]
     [SerializeField] private BarricadeConfig _barricadeConfig;

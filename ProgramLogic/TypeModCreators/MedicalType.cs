@@ -42,7 +42,7 @@ public class MedicalType : ICanBeCreated
         {
             writer.WriteLine("GUID {0}", Guid.NewGuid().ToString("N"));
             writer.WriteLine();
-            writer.WriteLine("Type Vest");
+            writer.WriteLine("Type Medical");
             writer.WriteLine("Rarity {0}", _rarity);
             writer.WriteLine("Useable Clothing");
             writer.WriteLine("ID ");
