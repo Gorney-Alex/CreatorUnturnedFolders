@@ -135,6 +135,7 @@ public class ModCreatorLogic
         bool hasHat = false;
         bool hasBackpack = false;
         bool HasMask = false;
+        bool HasWater = false;
 
         foreach (string file in files)
         {
@@ -163,6 +164,9 @@ public class ModCreatorLogic
             
             if (name.Equals("Vest", System.StringComparison.OrdinalIgnoreCase))
                 hasVest = true;
+            
+            if (name.Equals("Use", System.StringComparison.OrdinalIgnoreCase))
+                HasWater = true;
         }
         
         if (hasItem && hasBarricade) return ModeType.Barricade;
@@ -170,6 +174,7 @@ public class ModCreatorLogic
         if (hasItem && hasShirt) return ModeType.Shirt;
         if (hasItem && hasVest) return ModeType.Vest;
         if (hasItem && hasHat) return ModeType.Hat;
+        if (hasItem && HasWater) return ModeType.Water;
         if (hasItem && hasBackpack) return ModeType.Backpack;
         if (hasItem && HasMask) return ModeType.Mask;
         if (hasItem) return ModeType.Supply;
