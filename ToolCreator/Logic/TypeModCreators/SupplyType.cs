@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Globalization;
 
 //Gorney-Alex program
 
@@ -14,12 +13,12 @@ public class SupplyType : ICanBeCreated
             writer.WriteLine("GUID {0}", Guid.NewGuid().ToString("N"));
             writer.WriteLine();
             writer.WriteLine("Type Supply");
-            writer.WriteLine("Rarity {0}");
+            writer.WriteLine("Rarity Common");
             writer.WriteLine("ID ");
             writer.WriteLine();
-            writer.WriteLine("Size_X");
-            writer.WriteLine("Size_Y");
-            writer.WriteLine("Size_Z");
+            writer.WriteLine("Size_X 1");
+            writer.WriteLine("Size_Y 1");
+            writer.WriteLine("Size_Z 0.5");
             writer.WriteLine();
         }
     }

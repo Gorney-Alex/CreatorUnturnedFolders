@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Globalization;
 
 //Gorney-Alex program
 
@@ -14,18 +13,18 @@ public class PantsType : ICanBeCreated
             writer.WriteLine("GUID {0}", Guid.NewGuid().ToString("N"));
             writer.WriteLine();
             writer.WriteLine("Type Pants");
-            writer.WriteLine("Rarity");
+            writer.WriteLine("Rarity Common");
             writer.WriteLine("Useable Clothing");
             writer.WriteLine("ID ");
             writer.WriteLine();
-            writer.WriteLine("Size_X");
-            writer.WriteLine("Size_Y");
-            writer.WriteLine("Size_Z");
+            writer.WriteLine("Size_X 1");
+            writer.WriteLine("Size_Y 1");
+            writer.WriteLine("Size_Z 0.5");
             writer.WriteLine();
-            writer.WriteLine("Armor");
+            writer.WriteLine("Armor 0.9");
             writer.WriteLine();
-            writer.WriteLine("Width");
-            writer.WriteLine("Height");
+            writer.WriteLine("Width 2");
+            writer.WriteLine("Height 2");
             writer.WriteLine();
         }
     }

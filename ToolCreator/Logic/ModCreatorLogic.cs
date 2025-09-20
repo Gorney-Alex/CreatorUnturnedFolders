@@ -84,6 +84,16 @@ public class ModCreatorLogic
                 return new SupplyType();
             case ModeType.Vest:
                 return new VestType();
+            case ModeType.Backpack:
+                return new BackPackType();
+            case ModeType.Mask:
+                return new MaskType();
+            case ModeType.Hat:
+                return new HatType();
+            case ModeType.Water:
+                return new WaterType();
+            case ModeType.Food:
+                return new FoodType();
             case ModeType.Unknown:
             default:
                 return null;
@@ -122,6 +132,9 @@ public class ModCreatorLogic
         bool hasVest = false;
         bool hasPants = false;
         bool hasShirt = false;
+        bool hasHat = false;
+        bool hasBackpack = false;
+        bool HasMask = false;
 
         foreach (string file in files)
         {
@@ -138,12 +151,27 @@ public class ModCreatorLogic
             
             if (name.Equals("Shirt", System.StringComparison.OrdinalIgnoreCase))
                 hasShirt = true;
+            
+            if (name.Equals("Hat", System.StringComparison.OrdinalIgnoreCase))
+                hasHat = true;
+            
+            if (name.Equals("Backpack", System.StringComparison.OrdinalIgnoreCase))
+                hasBackpack = true;
+            
+            if (name.Equals("Mask", System.StringComparison.OrdinalIgnoreCase))
+                HasMask = true;
+            
+            if (name.Equals("Vest", System.StringComparison.OrdinalIgnoreCase))
+                hasVest = true;
         }
         
         if (hasItem && hasBarricade) return ModeType.Barricade;
         if (hasItem && hasPants) return ModeType.Pants;
         if (hasItem && hasShirt) return ModeType.Shirt;
         if (hasItem && hasVest) return ModeType.Vest;
+        if (hasItem && hasHat) return ModeType.Hat;
+        if (hasItem && hasBackpack) return ModeType.Backpack;
+        if (hasItem && HasMask) return ModeType.Mask;
         if (hasItem) return ModeType.Supply;
 
         return ModeType.Unknown;

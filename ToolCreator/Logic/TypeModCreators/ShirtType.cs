@@ -1,32 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Globalization;
 
 //Gorney-Alex program
 
 public class ShirtType : ICanBeCreated
 {
-    private int _x;
-    private int _y;
-    private float _z;
-    private int _width;
-    private float _armor;
-    private int _height;
-    private string _rarity;
-    private bool _isForMasterBundle;
-    
-    public ShirtType(int x, int y, float z, int width, float armor, int height, string rarity, bool isForMasterBundle)
-    {
-        _x = x;
-        _y = y;
-        _z = z;
-        _width = width;
-        _armor = armor;
-        _height = height;
-        _rarity = rarity;
-        _isForMasterBundle = isForMasterBundle;
-    }
     public void CreateDataFile(string fileName)
     {
         using (StreamWriter writer = new StreamWriter(fileName, false, Encoding.UTF8))
@@ -34,20 +13,18 @@ public class ShirtType : ICanBeCreated
             writer.WriteLine("GUID {0}", Guid.NewGuid().ToString("N"));
             writer.WriteLine();
             writer.WriteLine("Type Shirt");
-            writer.WriteLine("Rarity {0}", _rarity);
+            writer.WriteLine("Rarity Common");
             writer.WriteLine("Useable Clothing");
             writer.WriteLine("ID ");
             writer.WriteLine();
-            writer.WriteLine("Size_X {0}", _x.ToString(CultureInfo.InvariantCulture));
-            writer.WriteLine("Size_Y {0}", _y.ToString(CultureInfo.InvariantCulture));
-            writer.WriteLine("Size_Z {0}", _z.ToString(CultureInfo.InvariantCulture));
+            writer.WriteLine("Size_X 3");
+            writer.WriteLine("Size_Y 2");
+            writer.WriteLine("Size_Z 0.5");
             writer.WriteLine();
-            writer.WriteLine("Armor {0}", _armor.ToString(CultureInfo.InvariantCulture));
+            writer.WriteLine("Armor 0.9");
             writer.WriteLine();
-            writer.WriteLine("Width {0}", _width.ToString(CultureInfo.InvariantCulture));
-            writer.WriteLine("Height {0}", _height.ToString(CultureInfo.InvariantCulture));
-            writer.WriteLine();
-            if (!_isForMasterBundle) writer.WriteLine("Exclude_From_Master_Bundle");
+            writer.WriteLine("Width 2");
+            writer.WriteLine("Height 2");
         }
     }
 }
