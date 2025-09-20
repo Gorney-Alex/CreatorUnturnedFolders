@@ -1,4 +1,7 @@
-﻿public class ModModel
+﻿
+//Gorney-Alex program
+
+public class ModModel
 {
     public string FolderName;
     public string FolderPath;

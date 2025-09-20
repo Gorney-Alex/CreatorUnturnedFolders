@@ -20,6 +20,9 @@ public class FoodType : ICanBeCreated
             writer.WriteLine("Size_X 1");
             writer.WriteLine("Size_Y 1");
             writer.WriteLine("Size_Z 0.5");
+            writer.WriteLine();
+            writer.WriteLine("Food 15");
+            writer.WriteLine("Water 5");
         }
     }
 }

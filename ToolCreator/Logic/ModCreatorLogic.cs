@@ -3,6 +3,8 @@ using UnityEngine;
 using System.IO;
 using System.Text;
 
+//Gorney-Alex program
+
 public class ModCreatorLogic
 {
     private string _unityFolderPath;

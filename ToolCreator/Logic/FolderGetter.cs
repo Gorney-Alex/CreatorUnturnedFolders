@@ -3,6 +3,8 @@ using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
 
+//Gorney-Alex program
+
 public class FolderGetter : EditorWindow
 {
     public string GetFolderPath()
