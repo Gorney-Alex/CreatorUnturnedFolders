@@ -12,6 +12,9 @@
     Cloud, 
     Medical, 
     Backpack,
+    Large,
+    Medium,
+    Small,
     Unknown,
 }
 

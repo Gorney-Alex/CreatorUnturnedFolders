@@ -10,6 +10,7 @@ public class FolderGetter : EditorWindow
     public string GetFolderPath()
     {
         string folderPath = EditorUtility.OpenFolderPanel("Choose folder", "Assets", "");
+        
         if (!string.IsNullOrEmpty(folderPath))
         {
             if (folderPath.StartsWith(Application.dataPath))

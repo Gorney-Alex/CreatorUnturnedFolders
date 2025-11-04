@@ -96,6 +96,12 @@ public class ModCreatorLogic
                 return new WaterType();
             case ModeType.Food:
                 return new FoodType();
+            case ModeType.Large:
+                return new LargeObjectType();
+            case ModeType.Medium:
+                return new MediumObjectType();
+            case ModeType.Small:
+                return new SmallObjectType();
             case ModeType.Unknown:
             default:
                 return null;
@@ -138,6 +144,9 @@ public class ModCreatorLogic
         bool hasBackpack = false;
         bool HasMask = false;
         bool HasWater = false;
+        bool HasLargeObject = false;
+        bool HasMediumObject = false;
+        bool HasSmallObject = false;
 
         foreach (string file in files)
         {
@@ -169,6 +178,15 @@ public class ModCreatorLogic
             
             if (name.Equals("Use", System.StringComparison.OrdinalIgnoreCase))
                 HasWater = true;
+            
+            if (name.Equals("Skybox", System.StringComparison.OrdinalIgnoreCase))
+                HasLargeObject = true;
+            
+            if (name.Equals("Object", System.StringComparison.OrdinalIgnoreCase))
+                HasMediumObject = true;
+            
+            if (name.Equals("Object", System.StringComparison.OrdinalIgnoreCase))
+                HasSmallObject = true;
         }
         
         if (hasItem && hasBarricade) return ModeType.Barricade;
@@ -180,6 +198,9 @@ public class ModCreatorLogic
         if (hasItem && hasBackpack) return ModeType.Backpack;
         if (hasItem && HasMask) return ModeType.Mask;
         if (hasItem) return ModeType.Supply;
+        if (HasLargeObject) return ModeType.Large;
+        if (HasMediumObject) return ModeType.Medium;
+        if (HasSmallObject) return ModeType.Small;
 
         return ModeType.Unknown;
     }
