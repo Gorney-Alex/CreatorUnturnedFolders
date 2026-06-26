@@ -12,7 +12,7 @@ public class SmallObjectType : ICanBeCreated
         {
             writer.WriteLine("GUID {0}", Guid.NewGuid().ToString("N"));
             writer.WriteLine();
-            writer.WriteLine("Type Large");
+            writer.WriteLine("Type Small");
             writer.WriteLine("ID ");
             writer.WriteLine();
             writer.WriteLine("LOD Mesh");

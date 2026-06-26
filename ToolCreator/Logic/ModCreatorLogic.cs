@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Text;
@@ -9,6 +10,8 @@ public class ModCreatorLogic
 {
     private string _unityFolderPath;
     private string _targetFolderPath;
+    private string _folderPrefix;
+    private string _namePrefix;
     
     public List<ModModel> _mods;
 
@@ -16,16 +19,26 @@ public class ModCreatorLogic
     {
         _unityFolderPath = "";
         _targetFolderPath = "";
+        _folderPrefix = "";
+        _namePrefix = "";
         
         _mods = new List<ModModel>();
     }
     
     public void SetUnityFolderPath(string path) => _unityFolderPath = path;
     public void SetTargetFolderPath(string path) => _targetFolderPath = path;
+    public void SetFolderPrefix(string prefix) => _folderPrefix = prefix ?? "";
+    public void SetNamePrefix(string prefix) => _namePrefix = prefix ?? "";
 
     public void Input()
     {
         _mods.Clear();
+
+        if (string.IsNullOrEmpty(_unityFolderPath) || !Directory.Exists(_unityFolderPath))
+        {
+            Debug.LogError("Unity folder path is not set or does not exist!");
+            return;
+        }
         
         string[] directories = Directory.GetDirectories(_unityFolderPath);
         
@@ -83,7 +96,7 @@ public class ModCreatorLogic
             case ModeType.Pants:
                 return new PantsType();
             case ModeType.Shirt:
-                return new SupplyType();
+                return new ShirtType();
             case ModeType.Vest:
                 return new VestType();
             case ModeType.Backpack:
@@ -96,6 +109,10 @@ public class ModCreatorLogic
                 return new WaterType();
             case ModeType.Food:
                 return new FoodType();
+            case ModeType.Cloud:
+                return new CloudType();
+            case ModeType.Medical:
+                return new MedicalType();
             case ModeType.Large:
                 return new LargeObjectType();
             case ModeType.Medium:
@@ -110,25 +127,64 @@ public class ModCreatorLogic
     
     private void CreateFolderWithDataFiles(ICanBeCreated creator, string folderName)
     {
-        string folderPath = Path.Combine(_targetFolderPath, folderName);
+        string finalFolderName = BuildFolderNameWithPrefix(folderName);
+        string folderPath = Path.Combine(_targetFolderPath, finalFolderName);
         Directory.CreateDirectory(folderPath);
         
-        string mainDatPath = Path.Combine(folderPath, folderName + ".dat");
+        string mainDatPath = Path.Combine(folderPath, finalFolderName + ".dat");
         creator.CreateDataFile(mainDatPath);
         
         string englishFilePath = Path.Combine(folderPath, "English.dat");
-        GenerateEnglishFileContent(englishFilePath);
+        GenerateEnglishFileContent(englishFilePath, finalFolderName);
     }
     
-    private void GenerateEnglishFileContent(string filePath)
+    private void GenerateEnglishFileContent(string filePath, string folderName)
     {
+        string nameValue = BuildNameValue(folderName);
+        
         using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
         {
-            writer.WriteLine("Name");
+            writer.WriteLine("Name {0}", nameValue);
             writer.WriteLine("Description");
         }
         
         Debug.Log("English File is created");
+    }
+
+    private string BuildNameValue(string folderName)
+    {
+        string trimmedPrefix = _namePrefix.Trim();
+
+        if (string.IsNullOrEmpty(trimmedPrefix))
+        {
+            return folderName;
+        }
+
+        if (folderName.StartsWith(trimmedPrefix + " ", StringComparison.OrdinalIgnoreCase) ||
+            folderName.Equals(trimmedPrefix, StringComparison.OrdinalIgnoreCase))
+        {
+            return folderName;
+        }
+
+        return trimmedPrefix + " " + folderName;
+    }
+
+    private string BuildFolderNameWithPrefix(string folderName)
+    {
+        string trimmedPrefix = _folderPrefix.Trim();
+
+        if (string.IsNullOrEmpty(trimmedPrefix))
+        {
+            return folderName;
+        }
+
+        if (folderName.StartsWith(trimmedPrefix + " ", StringComparison.OrdinalIgnoreCase) ||
+            folderName.Equals(trimmedPrefix, StringComparison.OrdinalIgnoreCase))
+        {
+            return folderName;
+        }
+
+        return trimmedPrefix + " " + folderName;
     }
     
     private ModeType DetectModeType(string folderPath)
@@ -142,11 +198,14 @@ public class ModCreatorLogic
         bool hasShirt = false;
         bool hasHat = false;
         bool hasBackpack = false;
-        bool HasMask = false;
-        bool HasWater = false;
-        bool HasLargeObject = false;
-        bool HasMediumObject = false;
-        bool HasSmallObject = false;
+        bool hasMask = false;
+        bool hasWater = false;
+        bool hasFood = false;
+        bool hasMedical = false;
+        bool hasCloud = false;
+        bool hasLargeObject = false;
+        bool hasMediumObject = false;
+        bool hasSmallObject = false;
 
         foreach (string file in files)
         {
@@ -171,22 +230,31 @@ public class ModCreatorLogic
                 hasBackpack = true;
             
             if (name.Equals("Mask", System.StringComparison.OrdinalIgnoreCase))
-                HasMask = true;
+                hasMask = true;
             
             if (name.Equals("Vest", System.StringComparison.OrdinalIgnoreCase))
                 hasVest = true;
             
             if (name.Equals("Use", System.StringComparison.OrdinalIgnoreCase))
-                HasWater = true;
+                hasWater = true;
+
+            if (name.Equals("Food", System.StringComparison.OrdinalIgnoreCase))
+                hasFood = true;
+
+            if (name.Equals("Medical", System.StringComparison.OrdinalIgnoreCase))
+                hasMedical = true;
+
+            if (name.Equals("Cloud", System.StringComparison.OrdinalIgnoreCase))
+                hasCloud = true;
             
             if (name.Equals("Skybox", System.StringComparison.OrdinalIgnoreCase))
-                HasLargeObject = true;
+                hasLargeObject = true;
             
             if (name.Equals("Object", System.StringComparison.OrdinalIgnoreCase))
-                HasMediumObject = true;
+                hasMediumObject = true;
             
-            if (name.Equals("Object", System.StringComparison.OrdinalIgnoreCase))
-                HasSmallObject = true;
+            if (name.Equals("Small", System.StringComparison.OrdinalIgnoreCase))
+                hasSmallObject = true;
         }
         
         if (hasItem && hasBarricade) return ModeType.Barricade;
@@ -194,13 +262,16 @@ public class ModCreatorLogic
         if (hasItem && hasShirt) return ModeType.Shirt;
         if (hasItem && hasVest) return ModeType.Vest;
         if (hasItem && hasHat) return ModeType.Hat;
-        if (hasItem && HasWater) return ModeType.Water;
+        if (hasItem && hasWater) return ModeType.Water;
+        if (hasItem && hasFood) return ModeType.Food;
+        if (hasItem && hasMedical) return ModeType.Medical;
+        if (hasItem && hasCloud) return ModeType.Cloud;
         if (hasItem && hasBackpack) return ModeType.Backpack;
-        if (hasItem && HasMask) return ModeType.Mask;
+        if (hasItem && hasMask) return ModeType.Mask;
         if (hasItem) return ModeType.Supply;
-        if (HasLargeObject) return ModeType.Large;
-        if (HasMediumObject) return ModeType.Medium;
-        if (HasSmallObject) return ModeType.Small;
+        if (hasLargeObject) return ModeType.Large;
+        if (hasMediumObject) return ModeType.Medium;
+        if (hasSmallObject) return ModeType.Small;
 
         return ModeType.Unknown;
     }

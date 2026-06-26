@@ -11,6 +11,8 @@ public class CreatorModFolderUI : EditorWindow
     
     private string _unityFolderPath = "";
     private string _targetFolderPath = "";
+    private string _folderPrefix = "";
+    private string _namePrefix = "";
 
     private bool _showMods;
     private List<ModModel> _exportMods;
@@ -38,6 +40,8 @@ public class CreatorModFolderUI : EditorWindow
         UnityFolderPathStep();
         TargetFolderPathStep();
         ModeContainerStep();
+        FolderPrefixStep();
+        NamePrefixStep();
         CreateFoldersStep();
     }
 
@@ -175,11 +179,47 @@ public class CreatorModFolderUI : EditorWindow
 
     private void CreateFoldersStep()
     {
-        GUILayout.Label("Step 4. Create mod folders", EditorStyles.largeLabel);
+        GUILayout.Label("Step 6. Create mod folders", EditorStyles.largeLabel);
         
         if (GUILayout.Button("Create folders"))
         {
             _modCreatorLogic.CreateModFolders(_exportMods);
         }
+    }
+
+    private void NamePrefixStep()
+    {
+        GUILayout.Label("Step 5. Name prefix for English.dat (optional)", EditorStyles.largeLabel);
+
+        string newNamePrefix = EditorGUILayout.TextField("Name Prefix", _namePrefix);
+        if (newNamePrefix != _namePrefix)
+        {
+            _namePrefix = newNamePrefix;
+            _modCreatorLogic.SetNamePrefix(_namePrefix);
+        }
+
+        string previewName = string.IsNullOrWhiteSpace(_namePrefix)
+            ? "Apple"
+            : _namePrefix.Trim() + " Apple";
+
+        GUILayout.Label("Preview Name: " + previewName, EditorStyles.miniLabel);
+    }
+
+    private void FolderPrefixStep()
+    {
+        GUILayout.Label("Step 4. Folder prefix (optional)", EditorStyles.largeLabel);
+
+        string newPrefix = EditorGUILayout.TextField("Prefix", _folderPrefix);
+        if (newPrefix != _folderPrefix)
+        {
+            _folderPrefix = newPrefix;
+            _modCreatorLogic.SetFolderPrefix(_folderPrefix);
+        }
+
+        string previewName = string.IsNullOrWhiteSpace(_folderPrefix)
+            ? "Apple"
+            : _folderPrefix.Trim() + " Apple";
+
+        GUILayout.Label("Preview: " + previewName, EditorStyles.miniLabel);
     }
 }
